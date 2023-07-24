@@ -190,7 +190,6 @@ int complete_subcmdv(struct cmd_tbl *cmdtp, int count, int argc,
 		     char *const argv[], char last_char,
 		     int maxv, char *cmdv[])
 {
-#ifdef CONFIG_CMDLINE
 	const struct cmd_tbl *cmdend = cmdtp + count;
 	const char *p;
 	int len, clen;
@@ -258,21 +257,14 @@ int complete_subcmdv(struct cmd_tbl *cmdtp, int count, int argc,
 
 	cmdv[n_found] = NULL;
 	return n_found;
-#else
-	return 0;
-#endif
 }
 
 static int complete_cmdv(int argc, char *const argv[], char last_char,
 			 int maxv, char *cmdv[])
 {
-#ifdef CONFIG_CMDLINE
 	return complete_subcmdv(ll_entry_start(struct cmd_tbl, cmd),
 				ll_entry_count(struct cmd_tbl, cmd), argc, argv,
 				last_char, maxv, cmdv);
-#else
-	return 0;
-#endif
 }
 
 static int make_argv(char *s, int argvsz, char *argv[])
