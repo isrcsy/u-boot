@@ -114,16 +114,6 @@ read_rtc:
 		"hr: %02x min: %02x sec: %02x\n",
 		year, mon, mday, wday, hour, min, sec);
 
-#ifdef CONFIG_RTC_DS1307
-	if (sec & RTC_SEC_BIT_CH) {
-		printf ("### Warning: RTC oscillator has stopped\n");
-		/* clear the CH flag */
-		rtc_write (RTC_SEC_REG_ADDR,
-			   rtc_read (RTC_SEC_REG_ADDR) & ~RTC_SEC_BIT_CH);
-		rel = -1;
-	}
-#endif
-
 #ifdef CONFIG_RTC_MCP79411
 	/* make sure that the backup battery is enabled */
 	if (!(wday & MCP7941X_BIT_VBATEN)) {
